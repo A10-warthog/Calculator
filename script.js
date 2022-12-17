@@ -1,5 +1,5 @@
 function calculatorMain() {    
-    function operator() {
+    function operator(a, sign, b) {
         
     }
 }
