@@ -1,4 +1,6 @@
-function calculatorMain() {    
+function calculatorMain() {
+    let numFirst = null;
+        
     const numButton = document.querySelector(".button__number").children;
     const signButton = document.querySelector(".button__sign").children;
     function operator(a, sign, b) {
