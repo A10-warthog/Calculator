@@ -1,6 +1,6 @@
 function calculatorMain() {
-    let numFirst = null;
-    let numLast = null;
+    let numFirst = '';
+    let numLast = '';
     let operate = null;
     let lastOperate = null;    
     const numButton = document.querySelector(".button__number").children;
