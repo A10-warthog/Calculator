@@ -9,7 +9,11 @@ function calculatorMain() {
     const signButton = document.querySelector(".button__sign").children;
     
     function clearBtn() {
-        
+        let numFirst = '';
+        let numLast = '';
+        let strNumber = '';
+        let operate = null;
+        let lastOperate = null;
     }
     
     function operator(a, sign, b) {
