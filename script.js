@@ -8,7 +8,7 @@ function calculatorMain() {
     const numButton = document.querySelector(".button__number").children;
     const signButton = document.querySelector(".button__sign").children;
     
-    function resetBtn() {
+    function clearBtn() {
         
     }
     
