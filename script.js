@@ -17,7 +17,9 @@ function calculatorMain() {
     }
 
     function addOperator(operateSign) {
-        
+        if (operateSign === '%') 
+            operateSign = '+';
+        strNumber = ''; 
     }
 
     function operateOnNumber(a, sign, b) {
