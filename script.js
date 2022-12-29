@@ -16,6 +16,10 @@ function calculatorMain() {
         let lastOperator = null;
     }
 
+    function addOperator(operateSign) {
+        
+    }
+
     function operateOnNumber(a, sign, b) {
         switch(sign) {
             case '+':
