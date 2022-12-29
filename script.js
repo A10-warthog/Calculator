@@ -19,7 +19,12 @@ function calculatorMain() {
     function addOperator(operateSign) {
         if (operateSign === '%') 
             operateSign = '+';
-        strNumber = ''; 
+        strNumber = '';
+        
+        if (operator !== null && numLast !== '')
+            lastOperator = operateSign;
+        else 
+            operator = operateSign;
     }
 
     function operateOnNumber(a, sign, b) {
