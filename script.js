@@ -4,7 +4,7 @@ function calculatorMain() {
     let strNumber = '';
     let operate = null;
     let lastOperate = null;
-        
+      
     const numButton = document.querySelector(".button__number").children;
     const signButton = document.querySelector(".button__sign").children;
     
@@ -15,8 +15,8 @@ function calculatorMain() {
         let operate = null;
         let lastOperate = null;
     }
-    
-    function operator(a, sign, b) {
+
+    function operateOnNumber(a, sign, b) {
         switch(sign) {
             case '+':
                 return a + b;
