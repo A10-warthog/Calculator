@@ -12,7 +12,7 @@ function calculatorMain() {
         let numFirst = '';
         let numLast = '';
         let strNumber = '';
-        let operate = null;
+        let operator = null;
         let lastOperate = null;
     }
 
