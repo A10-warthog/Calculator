@@ -13,7 +13,7 @@ function calculatorMain() {
         let numLast = '';
         let strNumber = '';
         let operator = null;
-        let lastOperate = null;
+        let lastOperator = null;
     }
 
     function operateOnNumber(a, sign, b) {
