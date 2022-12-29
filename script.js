@@ -2,8 +2,8 @@ function calculatorMain() {
     let numFirst = '';
     let numLast = '';
     let strNumber = '';
-    let operate = null;
-    let lastOperate = null;
+    let operator = null;
+    let lastOperator = null;
       
     const numButton = document.querySelector(".button__number").children;
     const signButton = document.querySelector(".button__sign").children;
