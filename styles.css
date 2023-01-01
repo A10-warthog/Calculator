@@ -19,3 +19,11 @@
     align-items: end;
 }
 
+.box_btn--flex {
+    display: flex;
+}
+
+.btn {
+    height: 4rem;
+    flex: 1 1 75px;
+}
