@@ -1,13 +1,5 @@
 "use strict"
 
-let numFirst = '';
-let numLast = '';
-let strNumber = '';
-let operator = null;
-let lastOperator = null;
-  
-const numButton = document.querySelector(".button__number").children;
-const signButton = document.querySelector(".button__sign").children;
 
 function clearBtn() {
      numFirst = '';
@@ -39,4 +31,14 @@ function operateOnNumber(a, sign, b) {
         case '/':
             return a / b; 
     }
+}
+
+function main() {
+    let numFirst = '';
+    let numLast = '';
+    let strNumber = '';
+    let operator = null;
+    let lastOperator = null;
+    const numButton = document.querySelector(".button__number").children;
+    const signButton = document.querySelector(".button__sign").children;
 }
