@@ -8,8 +8,14 @@
     flex-direction: column;
 }
 
+.display {
+    min-height: 7rem;
+    padding-right: 3px;
+}
+
 .display--flex {
     display: flex;
     justify-content: flex-end;
     align-items: end;
 }
+
