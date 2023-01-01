@@ -1,0 +1,4 @@
+.cal--flex {
+    display: flex;
+    flex-direction: column;
+}
