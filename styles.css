@@ -26,6 +26,7 @@
 .display {
     min-height: 7rem;
     padding-right: 3px;
+    background-color: #675f6e;
 }
 
 .display--flex {
