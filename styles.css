@@ -32,12 +32,18 @@
     align-items: end;
 }
 
+.button--flex {
+    display: flex;
+    flex-direction: column-reverse;
+    row-gap: var(--gap);
+}
+
 .box_btn--flex {
     display: flex;
     column-gap: var(--gap);
 }
 
 .btn {
-    height: 4rem;
+    min-height: 4rem;
     flex: 1 1 75px;
 }
