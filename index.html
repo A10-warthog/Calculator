@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Calculator</title>
-        <link ref="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div class="background">
+        <div class="contain_back">
             <div class="calculator cal--flex">
                 <div class="display display--flex"></div>
-                <div class="box_btn">
+                <div class="box_btn box_btn--flex">
                     <button class="btn btn_clear">AC</button>
                     <button class="btn btn_percent" data-modify="16,53">%</button>
                     <button class="btn btn_back" data-key="8">&#x21E6;</button>
@@ -22,19 +22,19 @@
                     <button class="btn btn_operand" data-key="57, 105">9</button>
                     <button class="btn btn_operator" data-modify="16,53" data-key="106">x</button>
                 </div>
-                <div class="box_btn">
+                <div class="box_btn box_btn--flex">
                     <button class="btn btn_operand" data-key="52,100">4</button>
                     <button class="btn btn_operand" data-key="53,101">5</button>
                     <button class="btn btn_operand" data-key="54,102">6</button>
                     <button class="btn btn_operator" data-modify="16,189" data-key="109">-</button>
                 </div>
-                <div class="box_btn">
+                <div class="box_btn box_btn--flex">
                     <button class="btn operand_num_btn" data-key="49,97">1</button>
                     <button class="btn operand_num_btn" data-key="50,98">2</button>
                     <button class="btn operand_num_btn" data-key="51,99">3</button>
                     <button class="btn btn_operator" data-modify="16,187" data-key="107">+</button>
                 </div>
-                <div class="box_btn">
+                <div class="box_btn box_btn--flex">
                     <button class="btn btn_negation">+/-</button>
                     <button class="btn btn_operand" data-key="48,96">0</button>
                     <button class="btn btn_period" data-key="110,190">.</button>
