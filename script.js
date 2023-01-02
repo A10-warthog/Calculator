@@ -38,6 +38,5 @@ function main() {
     let strNumber = '';
     let operator = null;
     let lastOperator = null;
-    const numButton = document.querySelector(".button__number").children;
-    const signButton = document.querySelector(".button__sign").children;
+    const button = document.querySelectorAll(".btn");
 }
