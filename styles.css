@@ -90,3 +90,9 @@
     background-color: #1059da;
     box-shadow: 0 4px 0 #104c9f;
 }
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #105597;
+    text-shadow: 0 0 30px #fff;
+}
