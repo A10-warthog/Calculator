@@ -4,8 +4,10 @@
 }
 
 .cal--flex {
+    --gap : 0.7rem;
     display: flex;
     flex-direction: column;
+    gap: var(--gap);
 }
 
 .display {
@@ -21,6 +23,7 @@
 
 .box_btn--flex {
     display: flex;
+    column-gap: var(--gap);
 }
 
 .btn {
