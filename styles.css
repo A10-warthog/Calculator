@@ -12,6 +12,8 @@
 .calculator {
     width: 24rem;
     padding: 0.8rem;
+    background-color: #262627;
+    border: 5px solid transparent;
 }
 
 .cal--flex {
