@@ -32,6 +32,10 @@ function operateOnNumber(a, sign, b) {
     }
 }
 
+function checkBtn(e) {
+    const btn = e.target;
+}
+
 function main() {
     let numFirst = '';
     let numLast = '';
@@ -39,4 +43,8 @@ function main() {
     let operator = null;
     let lastOperator = null;
     const button = document.querySelectorAll(".btn");
+
+    button.forEach(button => addEventListener("pointerdown", checkBtn))
 }
+
+main();
