@@ -56,3 +56,11 @@
     color: #f3f3f3;
     box-shadow: 0 3.5px 0 #38373f;
 }
+
+.btn_clear {
+    background-color: #118a1f;
+}
+
+.btn_sign--color {
+    background-color: #007acf;
+}
