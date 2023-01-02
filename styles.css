@@ -54,13 +54,20 @@
     font-size: 1.2rem;
     background-color: #41404e;
     color: #f3f3f3;
-    box-shadow: 0 3.5px 0 #38373f;
+    box-shadow: 0 4px 0 #38373f;
 }
 
 .btn_clear {
-    background-color: #118a1f;
+    background-color: #008500;
+    box-shadow: 0 4px 0 #255529;
 }
 
 .btn_sign--color {
-    background-color: #007acf;
+    background-color: #206bc0;
+    box-shadow: 0 4px 0 #104c97;
+}
+
+.btn_equal {
+    background-color: #1059da;
+    box-shadow: 0 4px 0 #104c9f;
 }
