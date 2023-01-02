@@ -3,6 +3,12 @@
     margin: -0.5rem;
 }
 
+.contain_back--flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .calculator {
     width: 24rem;
     padding: 0.8rem;
