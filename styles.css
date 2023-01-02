@@ -72,10 +72,13 @@
     box-shadow: 0 4px 0 #255529;
 }
 
+.btn_operator {
+    font-size: 1.4rem;
+}
+
 .btn_sign--color {
     background-color: #206bc0;
     box-shadow: 0 4px 0 #105597;
-    font-size: 1.4rem;
 }
 
 .btn_equal {
