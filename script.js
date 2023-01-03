@@ -46,34 +46,32 @@ function addOperator(obj) {
 
 function checkBtnClass(btn, obj) {
     if (btn.classList.contains("btn_operand"))
-        return "operand";
+        return addNum(obj);
 
     if (btn.classList.contains("btn_percent"))
-        return "percent";
+        return addPercent(obj);
 
     if (btn.classList.contains("btn_equal"))
-        return "equal";
+        return equateExpr(obj);
 
     if (btn.classList.contains("btn_negation"))
-        return "negation";
+        return negateNum(obj);
 
     if (btn.classList.contains("btn_period"))
-        return "period";
+        return addPeriod(obj);
 
     if (btn.classList.contains("btn_back"))
-        return "backspace";
+        return removeNum(obj);
 
     if (btn.classList.contains("btn_clear"))
-        return "clear";
+        return allClear(obj);
 
     if (btn.classList.contains("btn_operator"))
-        return "operator";
+        return addOperator(obj);
 }
 
 function main() {
-
     const button = document.querySelectorAll(".btn");
-    
     const calValue = {
         numFirst: '',
         numLast: '', 
