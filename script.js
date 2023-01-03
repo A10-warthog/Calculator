@@ -6,7 +6,7 @@ function allClearBtn(obj) {
      obj.curNumStr = '';
      obj.operator = null;
      obj.lastOperator = null;
-
+     obj.displayValue("0");
      return obj;
 }
 
@@ -74,13 +74,16 @@ function checkBtnClass(btn, obj) {
 function main() {
     const button = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
-    
+
     const calValue = {
         numFirst: '',
         numLast: '', 
         curNumStr: '',
         operator: null,
         lastOperator: null,
+        displayValue: function (val = "0") {
+            display.textContent = val;
+        },
     }
 
     function mediator(e) {
