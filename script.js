@@ -26,7 +26,7 @@ function operateOnNumber(a, sign, b) {
             return a + b;
         case '-':
             return a - b;
-        case '*':
+        case 'x':
             return a * b;
         case '/':
             return a / b; 
@@ -61,10 +61,20 @@ function checkNum(num, obj) {
     return obj;
 }
 
+function checkForLen(numStr) {
+    const len = numStr.match(/\d+/g).join('').length;
+    
+    if (len > 10) {
+        return roundNum(numStr);
+    } 
+
+    return numStr;
+}
+
 function addPercent(obj) {
     if (obj.curNumStr === '')
         obj.curNumStr = obj.displayValue();
-    
+    //using unary operator to convert string into number
     obj.curNumStr = ((+obj.curNumStr) / 100).toString();
     
     const value = checkForLen(obj.curNumStr);
