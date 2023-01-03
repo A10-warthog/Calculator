@@ -13,6 +13,11 @@ function allClearBtn(obj) {
 function addOperator(operator, obj) {
     if (operator === '%') 
         operator = '+';
+    if (obj.firstOperator !== null)
+        obj.lastOperator = operator;
+    else 
+        obj.firstOperator = operator;
+
 }
 
 function operateOnNumber(a, sign, b) {
