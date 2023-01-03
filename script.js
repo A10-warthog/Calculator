@@ -87,19 +87,17 @@ function roundNum(numStr) {
     else
         numStrLen = str.length - 1;
     
-        modifyNum = numStrArr.pop();
+    modifyNum = numStrArr.pop();
     firstNum = numStrArr.shift();
     allZero = numStrArr.every(num => num === 0);
     allNine = numStrArr.every(num => num === 9);
 
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
-    else if (modifyNum < 4 && allNine === true || allZero === false)
-        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
-    else if (modifyNum > 4 && allZero === true)
-        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString())
-                        .replace((/\d$/), '1');
-    else if (modifyNum > 4 && allNine === false || allZero === false) {
+
+    //remove last number of arr if it is 9 or above
+    //increment second last number 
+    else if (modifyNum > 4 && (allNine === false || allZero === false)) {
         len = numStrArr.length - 1;
         numStrArr[len] += 1;
         while (numStrArr[len] >= 9) {
@@ -109,7 +107,11 @@ function roundNum(numStr) {
         }
         rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
     }
-
+    //assign string joined value of numStrArr
+    else if ((modifyNum < 4 && allNine === true || allZero === false ||
+        modifyNum > 4 && allZero === true))
+        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
+    
     return `${frontSign}${firstNum}.${rest}e${eSign}${numStrLen}`;
 }
 
