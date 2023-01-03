@@ -32,12 +32,25 @@ function operateOnNumber(a, sign, b) {
     }
 }
 
+function addNum(obj) {
+    
+}
+
+function addOperator(obj) {
+
+}
+
 function checkBtn(btn) {
     if (btn.classList.contains("btn_operand"))
         return "operand";
+    else if (btn.classList.contains("btn_operator"))
+        return "operator";
 }
 
 function main() {
+
+    const button = document.querySelectorAll(".btn");
+    
     const calValue = {
         numFirst: '',
         numLast: '', 
@@ -45,7 +58,20 @@ function main() {
         operator: null,
         lastOperator: null, 
     }
-    const button = document.querySelectorAll(".btn");
+
+    
+    function mediator(e) {
+        const btn = e.target;
+        const callFunc = checkBtn(btn);
+
+        switch(callFunc) {
+            case "operand": 
+                addNum(calValue);
+                break;
+            case "operator":
+                addOperator(calValue)
+        }
+    }
 
     button.forEach(button => addEventListener("pointerdown", mediator))
 }
