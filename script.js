@@ -63,16 +63,12 @@ function checkNum(num, obj) {
 
 function roundNum(numStr) {
     let str = numStr, rest = '0', eSign = '+', frontSign = '';
-    let firstNum = 0, modifyNum = 0, numStrLen = 0, eNum = 0;
+    let firstNum = 0, modifyNum = 0, numStrLen = 0;
     let allZero = true, allNine = true;
     let numStrArr = [];
-    
-    if (numStr.includes("e")) 
-    //match integer after e letter 
-        eNum = str.match(/\d+$/g).map(str => +str);
 
     if (numStr.indexOf(".") < (numStr.length / 2))
-        eSign = '-'
+        eSign = '-';
     
     //matches front operator
     if ((/^-/).test(str) === true)
@@ -85,16 +81,21 @@ function roundNum(numStr) {
     //Convert string digit to integer with unary operator
     numStrArr = str.match(/^\d{6}/g)[0].split('').map(num => +num);
 
-    numStrLen = str.length - 1;
-    modifyNum = numStrArr.pop();
+    if (numStr.includes("e")) 
+    //match integer after e letter 
+        numStrLen = str.match(/\d+$/g)[0];
+    else
+        numStrLen = str.length - 1;
+    
+        modifyNum = numStrArr.pop();
     firstNum = numStrArr.shift();
     allZero = numStrArr.every(num => num === 0);
     allNine = numStrArr.every(num => num === 9);
 
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
-    else if (modifyNum < 4 && allNine == true)
-        rest = numStrArr.reduce((acc, curr) => acc.toString() + curr.toString());
+    else if (modifyNum < 4 && allNine === true || allZero === false)
+        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
     else if (modifyNum > 4 && allZero === true)
         rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString())
                         .replace((/\d$/), '1');
@@ -109,7 +110,7 @@ function roundNum(numStr) {
         rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
     }
 
-
+    return `${frontSign}${firstNum}.${rest}e${eSign}${numStrLen}`;
 }
 
 function checkForLen(numStr) {
