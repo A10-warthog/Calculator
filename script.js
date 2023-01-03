@@ -32,19 +32,22 @@ function operateOnNumber(a, sign, b) {
     }
 }
 
-function checkBtn(e) {
-    const btn = e.target;
+function checkBtn(btn) {
+    if (btn.classList.contains("btn_operand"))
+        return "operand";
 }
 
 function main() {
-    let numFirst = '';
-    let numLast = '';
-    let strNumber = '';
-    let operator = null;
-    let lastOperator = null;
+    const calValue = {
+        numFirst: '',
+        numLast: '', 
+        curNumSt: '',
+        operator: null,
+        lastOperator: null, 
+    }
     const button = document.querySelectorAll(".btn");
 
-    button.forEach(button => addEventListener("pointerdown", checkBtn))
+    button.forEach(button => addEventListener("pointerdown", mediator))
 }
 
 main();
