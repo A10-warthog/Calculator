@@ -66,6 +66,46 @@ function roundNum(numStr) {
     let firstNum = 0, modifyNum = 0, numStrLen = 0, eNum = 0;
     let allZero = true, allNine = true;
     let numStrArr = [];
+    
+    if (numStr.includes("e")) {
+    //match integer after e letter 
+        eNum = str.match(/\d+$/g).map(str => +str);
+    //match operator after e letter
+        eSign = str.match(/\W(?=\d+$)/g);
+    }
+    //matches front operator
+    if ((/^-/).test(str) === true)
+        frontSign = '-';
+    //replace front operator and period
+    str = str.replace((/^-|\./g), '');
+    /*match first 6 digit. 
+      Convert string digit to integer with unary operator*/
+    numStrArr = str.match(/^\d{6}/g)[0].split('').map(num => +num);
+    numStrLen = str.length - 1;
+    modifyNum = numStrArr.pop();
+    firstNum = numStrArr.shift();
+    allZero = numStrArr.every(num => num === 0);
+    allNine = numStrArr.every(num => num === 9);
+
+    if (modifyNum > 4 && allNine === true) 
+        firstNum += 1;
+    else if (modifyNum < 4 && allNine == true)
+        rest = numStrArr.reduce((acc, curr) => acc.toString() + curr.toString());
+    else if (modifyNum > 4 && allZero === true)
+        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString())
+                        .replace((/\d$/), '1');
+    else if (modifyNum > 4 && allNine === false || allZero === false) {
+        len = numStrArr.length - 1;
+        numStrArr[len] += 1;
+        while (numStrArr[len] >= 9) {
+            numStrArr.pop();
+            len = numStrArr.length - 1;
+            numStrArr[len] += 1;
+        }
+        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
+    }
+
+
 }
 
 function checkForLen(numStr) {
