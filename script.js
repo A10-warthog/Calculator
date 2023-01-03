@@ -65,7 +65,7 @@ function checkBtn(btn) {
 
     if (btn.classList.contains("btn_clear"))
         return "clear";
-        
+
     if (btn.classList.contains("btn_operator"))
         return "operator";
 }
@@ -82,21 +82,10 @@ function main() {
         lastOperator: null, 
     }
 
-    
     function mediator(e) {
         const btn = e.target;
         const callFunc = checkBtn(btn);
 
-        switch(callFunc) {
-            case "operand": 
-                addNum(calValue);
-                break;
-            case "operator":
-                addOperator(calValue);
-                break;
-            case "percent":
-                addPercent(calValue);
-        }
     }
 
     button.forEach(button => addEventListener("pointerdown", mediator))
