@@ -37,7 +37,7 @@ function addNum(obj) {
 }
 
 function addPercent(obj) {
-    
+
 }
 
 function addOperator(obj) {
@@ -47,9 +47,26 @@ function addOperator(obj) {
 function checkBtn(btn) {
     if (btn.classList.contains("btn_operand"))
         return "operand";
-    else if (btn.classList.contains("btn_percent"))
+
+    if (btn.classList.contains("btn_percent"))
         return "percent";
-    else if (btn.classList.contains("btn_operator"))
+
+    if (btn.classList.contains("btn_equal"))
+        return "equal";
+
+    if (btn.classList.contains("btn_negation"))
+        return "negation";
+
+    if (btn.classList.contains("btn_period"))
+        return "period";
+
+    if (btn.classList.contains("btn_back"))
+        return "backspace";
+
+    if (btn.classList.contains("btn_clear"))
+        return "clear";
+        
+    if (btn.classList.contains("btn_operator"))
         return "operator";
 }
 
