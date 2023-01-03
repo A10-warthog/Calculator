@@ -62,25 +62,29 @@ function checkNum(num, obj) {
 }
 
 function roundNum(numStr) {
-    let str = numStr, eSign = '', rest = '0', frontSign = '';
+    let str = numStr, rest = '0', eSign = '+', frontSign = '';
     let firstNum = 0, modifyNum = 0, numStrLen = 0, eNum = 0;
     let allZero = true, allNine = true;
     let numStrArr = [];
     
-    if (numStr.includes("e")) {
+    if (numStr.includes("e")) 
     //match integer after e letter 
         eNum = str.match(/\d+$/g).map(str => +str);
-    //match operator after e letter
-        eSign = str.match(/\W(?=\d+$)/g);
-    }
+
+    if (numStr.indexOf(".") < (numStr.length / 2))
+        eSign = '-'
+    
     //matches front operator
     if ((/^-/).test(str) === true)
         frontSign = '-';
+    
     //replace front operator and period
     str = str.replace((/^-|\./g), '');
-    /*match first 6 digit. 
-      Convert string digit to integer with unary operator*/
+
+    //match first 6 digit
+    //Convert string digit to integer with unary operator
     numStrArr = str.match(/^\d{6}/g)[0].split('').map(num => +num);
+
     numStrLen = str.length - 1;
     modifyNum = numStrArr.pop();
     firstNum = numStrArr.shift();
