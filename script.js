@@ -1,11 +1,13 @@
 "use strict"
 
-function clearBtn() {
-     numFirst = '';
-     numLast = '';
-     strNumber = '';
-     operator = null;
-     lastOperator = null;
+function allClearBtn(obj) {
+     obj.numFirst = '';
+     obj.numLast = '';
+     obj.curNumStr = '';
+     obj.operator = null;
+     obj.lastOperator = null;
+     
+     return obj;
 }
 
 function addOperator(operator, obj) {
@@ -58,7 +60,7 @@ function checkBtnClass(btn, obj) {
         return removeNum(obj);
 
     if (btn.classList.contains("btn_clear"))
-        return allClear(obj);
+        return allClearBtn(obj);
 
     if (btn.classList.contains("btn_operator"))
         return addOperator(btn.textContent, obj);
@@ -69,7 +71,7 @@ function main() {
     const calValue = {
         numFirst: '',
         numLast: '', 
-        curNumSt: '',
+        curNumStr: '',
         operator: null,
         lastOperator: null, 
     }
