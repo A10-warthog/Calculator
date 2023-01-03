@@ -11,6 +11,8 @@ function allClearBtn(obj) {
 }
 
 function addOperator(operator, obj) {
+    obj.curNumStr = '';
+
     if (obj.firstOperator !== null)
         obj.lastOperator = operator;
     else 
@@ -103,7 +105,7 @@ function main() {
     const button = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
 
-    const calValue = {
+    let calValue = {
         numFirst: '',
         numLast: '', 
         curNumStr: '',
