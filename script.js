@@ -6,7 +6,7 @@ function allClearBtn(obj) {
      obj.curNumStr = '';
      obj.operator = null;
      obj.lastOperator = null;
-     
+
      return obj;
 }
 
@@ -28,8 +28,13 @@ function operateOnNumber(a, sign, b) {
     }
 }
 
-function addNum(obj) {
+function addNum(num, obj) {
+    if ((obj.curNumStr === '' || obj.curNumStr === '0') && num === '0')
+        obj.curNumStr = '';
+    else {
+        obj.curNumStr += num;
 
+    }
 }
 
 function addPercent(obj) {
@@ -68,12 +73,14 @@ function checkBtnClass(btn, obj) {
 
 function main() {
     const button = document.querySelectorAll(".btn");
+    const display = document.querySelector(".display");
+    
     const calValue = {
         numFirst: '',
         numLast: '', 
         curNumStr: '',
         operator: null,
-        lastOperator: null, 
+        lastOperator: null,
     }
 
     function mediator(e) {
