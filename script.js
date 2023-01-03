@@ -33,6 +33,10 @@ function operateOnNumber(a, sign, b) {
 }
 
 function addNum(obj) {
+
+}
+
+function addPercent(obj) {
     
 }
 
@@ -43,6 +47,8 @@ function addOperator(obj) {
 function checkBtn(btn) {
     if (btn.classList.contains("btn_operand"))
         return "operand";
+    else if (btn.classList.contains("btn_percent"))
+        return "percent";
     else if (btn.classList.contains("btn_operator"))
         return "operator";
 }
@@ -69,7 +75,10 @@ function main() {
                 addNum(calValue);
                 break;
             case "operator":
-                addOperator(calValue)
+                addOperator(calValue);
+                break;
+            case "percent":
+                addPercent(calValue);
         }
     }
 
