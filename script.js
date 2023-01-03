@@ -61,6 +61,13 @@ function checkNum(num, obj) {
     return obj;
 }
 
+function roundNum(numStr) {
+    let str = numStr, eSign = '', rest = '0', frontSign = '';
+    let firstNum = 0, modifyNum = 0, numStrLen = 0, eNum = 0;
+    let allZero = true, allNine = true;
+    let numStrArr = [];
+}
+
 function checkForLen(numStr) {
     const len = numStr.match(/\d+/g).join('').length;
     
