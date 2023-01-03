@@ -11,13 +11,11 @@ function allClearBtn(obj) {
 }
 
 function addOperator(operator, obj) {
-    if (operator === '%') 
-        operator = '+';
     if (obj.firstOperator !== null)
         obj.lastOperator = operator;
     else 
         obj.firstOperator = operator;
-
+    return obj;
 }
 
 function operateOnNumber(a, sign, b) {
@@ -33,13 +31,20 @@ function operateOnNumber(a, sign, b) {
     }
 }
 
+function limitNumber(strExpr) {
+    return strExpr.match(/^-*[\d\.\w\\W]{1,10}/g).join('');
+}
+
 function addNum(num, obj) {
     if ((obj.curNumStr === '' || obj.curNumStr === '0') && num === '0')
         obj.curNumStr = '';
     else {
         obj.curNumStr += num;
-
+        const value = limitNumber(obj.curNumStr);
+        obj.displayValue(value);
     }
+
+    return obj;
 }
 
 function addPercent(obj) {
