@@ -8,15 +8,9 @@ function clearBtn() {
      lastOperator = null;
 }
 
-function addOperator(operateSign) {
-    if (operateSign === '%') 
-        operateSign = '+';
-    strNumber = '';
-    
-    if (operator !== null && numLast !== '')
-        lastOperator = operateSign;
-    else 
-        operator = operateSign;
+function addOperator(operator, obj) {
+    if (operator === '%') 
+        operator = '+';
 }
 
 function operateOnNumber(a, sign, b) {
@@ -46,7 +40,7 @@ function addOperator(obj) {
 
 function checkBtnClass(btn, obj) {
     if (btn.classList.contains("btn_operand"))
-        return addNum(obj);
+        return addNum(btn.textContent, obj);
 
     if (btn.classList.contains("btn_percent"))
         return addPercent(obj);
@@ -67,7 +61,7 @@ function checkBtnClass(btn, obj) {
         return allClear(obj);
 
     if (btn.classList.contains("btn_operator"))
-        return addOperator(obj);
+        return addOperator(btn.textContent, obj);
 }
 
 function main() {
