@@ -44,7 +44,7 @@ function addOperator(obj) {
 
 }
 
-function checkBtn(btn) {
+function checkBtn(btn, obj) {
     if (btn.classList.contains("btn_operand"))
         return "operand";
 
@@ -84,8 +84,7 @@ function main() {
 
     function mediator(e) {
         const btn = e.target;
-        const callFunc = checkBtn(btn);
-
+        calValue = checkBtn(btn, calValue);
     }
 
     button.forEach(button => addEventListener("pointerdown", mediator))
