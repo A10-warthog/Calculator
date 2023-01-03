@@ -32,6 +32,8 @@ function operateOnNumber(a, sign, b) {
 }
 
 function limitNumber(strExpr) {
+    /*matches numbers, period, letter and non alpha numeric letters
+      and returns a string with length from 1 to 10 */
     return strExpr.match(/^-*[\d\.\w\\W]{1,10}/g).join('');
 }
 
@@ -58,11 +60,17 @@ function checkNum(num, obj) {
 }
 
 function addPercent(obj) {
+    if (obj.curNumStr === '')
+        obj.curNumStr = obj.displayValue();
+    
+    obj.curNumStr = ((+obj.curNumStr) / 100).toString();
+    
+    const value = checkForLen(obj.curNumStr);
+    
+    obj.displayValue(value);
+    addNum(obj);
 
-}
-
-function addOperator(obj) {
-
+    return obj;
 }
 
 function checkBtnClass(btn, obj) {
