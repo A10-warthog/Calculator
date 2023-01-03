@@ -4,7 +4,7 @@ function allClearBtn(obj) {
      obj.numFirst = '';
      obj.numLast = '';
      obj.curNumStr = '';
-     obj.operator = null;
+     obj.firstOperator = null;
      obj.lastOperator = null;
      obj.displayValue("0");
      return obj;
@@ -79,7 +79,7 @@ function main() {
         numFirst: '',
         numLast: '', 
         curNumStr: '',
-        operator: null,
+        firstOperator: null,
         lastOperator: null,
         displayValue: function (val = "0") {
             display.textContent = val;
