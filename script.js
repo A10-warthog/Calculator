@@ -6,10 +6,9 @@ function allClearBtn(obj) {
             obj[key]();
         else if ((/\d/).test(obj[key]) === true) //check for number
             obj[key] = '';
-        else if ((/\W/).test(obj[key]) === true)//check for sign
+        else if ((/\W|\w/).test(obj[key]) === true)//check for sign
             obj[key] = null;
      }
-   
      return obj;
 }
 
@@ -19,7 +18,6 @@ function addOperator(operator, obj) {
         obj.lastOperator = operator;
     else if (obj.numFirst !== '')
         obj.firstOperator = operator;
-
     return obj;
 }
 
@@ -31,8 +29,9 @@ function calculateNum(a, sign, b) {
             return a - b;
         case 'x':
             return a * b;
-        case '/':
+        case '/': {
             return a / b; 
+        }   
     }
 }
 
@@ -43,11 +42,14 @@ function limitNumber(strExpr) {
 }
 
 function removeNum(obj) {
+    if (obj.firstOperator !== null || obj.lastOperator !== null)
+        return obj;
+    if (obj.curNumStr === '')
+        obj.curNumStr = '0';
     const numArr = checkForLen(obj.curNumStr).split('');
     numArr.pop();
     obj.curNumStr = numArr.join('');
     obj.displayValue(obj.curNumStr);
-
     if (obj.curNumStr === '') {
         obj.displayValue();
         return obj;
@@ -59,40 +61,48 @@ function removeNum(obj) {
 function addPeriod(obj) {
     if (obj.curNumStr === '')
         obj.curNumStr = '0';
-    
     if (obj.curNumStr.includes("."))
         obj.curNumStr += '';
     else
         obj.curNumStr += '.';
-
     obj.displayValue(obj.currNumStr);
     obj = addNum(obj);
-    
     return obj;
 }
 
 function addNum(obj) {
     if (obj.curNumStr === '0')
         obj.curNumStr = '';
-
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
     else    
-        obj.numFirst = obj.curNumStr;
-    
+        obj.numFirst = obj.curNumStr;  
     return obj;
 }
 
 function checkNum(num, obj) {
     if ((obj.curNumStr === '' || obj.curNumStr === '0') && num === '0')
-        obj.curNumStr = '';
+        obj.curNumStr = '0';
     else {
         obj.curNumStr += num;
         const value = limitNumber(obj.curNumStr);
         obj.displayValue(value);
         obj = addNum(obj);
     }
+    return obj;
+}
 
+function negateNum(obj) {
+    obj.curNumStr = obj.displayDiv.textContent;
+    if ((/^-/).test(obj.curNumStr) === false)
+        obj.curNumStr = '-' + obj.curNumStr;
+    else 
+        obj.curNumStr = obj.curNumStr.replace((/^-/), '');
+    if (obj.curNumStr === '-0')
+        obj.curNumStr = '0'
+    console.log(obj.curNumStr);
+    obj.displayDiv.textContent = limitNumber(obj.curNumStr);
+    obj = addNum(obj);         
     return obj;
 }
 
@@ -101,27 +111,21 @@ function roundNum(numStr) {
     let firstNum = 0, modifyNum = 0, numStrLen = 0;
     let allZero = true, allNine = true;
     let numStrArr = [];
-
     if (numStr.indexOf(".") < (numStr.length / 2))
         eSign = '-';
-    
     //matches front operator
     if ((/^-/).test(str) === true)
         frontSign = '-';
-    
     //replace front operator and period
     str = str.replace((/^-|\./g), '');
-
     //match first 6 digit
     //Convert string digit to integer with unary operator
     numStrArr = str.match(/^\d{6}/g)[0].split('').map(num => +num);
-
     if (numStr.includes("e")) 
     //match integer after e letter 
         numStrLen = str.match(/\d+$/g)[0];
     else
         numStrLen = str.length - 1;
-    
     modifyNum = numStrArr.pop();
     firstNum = numStrArr.shift();
     allZero = numStrArr.every(num => num === 0);
@@ -129,12 +133,10 @@ function roundNum(numStr) {
     console.log(allZero, allNine)
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
-    
     //assign string joined value of numStrArr
     else if ((modifyNum < 4 && (allNine === true || allNine === false)) ||
               (modifyNum > 4 && allZero === true))
         rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
-
     //remove last number of arr if it is 9 or above
     //increment second last number 
     else if (modifyNum > 4 && (allNine === false || allZero === false)) {
@@ -154,7 +156,6 @@ function checkForLen(numStr) {
     const len = numStr.match(/\d+/g).join('').length;
     if (len > 10) 
         return roundNum(numStr);
-    
     return numStr;
 }
 
@@ -166,49 +167,38 @@ function addPercent(obj) {
     const value = checkForLen(obj.curNumStr);
     obj.displayValue(value);
     obj = addNum(obj);
-    
     return obj;
 }
 
 function equateExpr(obj) {
-    let result = '';
-    let {numFirst, numLast, firstOperator, lastOperator} = obj;
-   
     if (firstOperator === null) 
         return obj;
-
+    let result = '';
+    let {numFirst, numLast, firstOperator, lastOperator} = obj;
     result = calculateNum(+numFirst, firstOperator, +numLast);
-
     obj = allClearBtn(obj);
     obj.numFirst = result.toString();
     obj.firstOperator = lastOperator;
     obj.displayValue(checkForLen(obj.numFirst));
-
+    console.log(obj, 'ev');
     return obj;
 }
 
 function checkBtnClass(btn, obj) {
     if (btn.classList.contains("btn_operand"))
         return checkNum(btn.textContent, obj);
-
     if (btn.classList.contains("btn_percent"))
         return addPercent(obj);
-
     if (btn.classList.contains("btn_equal"))
         return equateExpr(obj);
-
     if (btn.classList.contains("btn_negation"))
         return negateNum(obj);
-
     if (btn.classList.contains("btn_period"))
         return addPeriod(obj);
-
     if (btn.classList.contains("btn_back"))
         return removeNum(obj);
-
     if (btn.classList.contains("btn_clear"))
         return allClearBtn(obj);
-
     if (btn.classList.contains("btn_operator"))
         return addOperator(btn.textContent, obj);
 }
@@ -216,22 +206,21 @@ function checkBtnClass(btn, obj) {
 function main() {
     const button = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
-
     let calValue = {
         numFirst: '',
         numLast: '', 
         curNumStr: '',
         firstOperator: null,
         lastOperator: null,
-        displayValue: function (val = "0") {
-           return display.textContent = val;
+        displayValue() {
+           return display;
         },
     }
 
     function mediator(e) {
         const btn = e.target;
         calValue = checkBtnClass(btn, calValue);
-
+        console.table(calValue);
         if (calValue.lastOperator !== null)
             calValue = equateExpr(calValue);
     }
