@@ -38,11 +38,11 @@ function calculateNum(a, sign, b) {
 function limitNumber(strExpr) {
     /*matches numbers, period, letter and non alpha numeric letters
       and returns a string with length from 1 to 10 */
-    return strExpr.match(/^-*[\d\.\w\\W]{1,10}/g).join('');
+    return strExpr.match(/^-*[\d\.\w\W]{1,10}/g).join('');
 }
 
 function removeNum(obj) {
-    const numArr = obj.curNumStr.split('');
+    const numArr = checkForLen(obj.curNumStr).split('');
     numArr.pop();
     obj.curNumStr = numArr.join('');
     obj.displayValue(obj.curNumStr);
@@ -71,7 +71,10 @@ function addPeriod(obj) {
 }
 
 function addNum(obj) {
-    obj.curNumStr = limitNumber(obj.curNumStr);
+    // obj.curNumStr = limitNumber(obj.curNumStr);
+    
+    if (obj.curNumStr === '0')
+        obj.curNumStr = '';
 
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
@@ -124,7 +127,7 @@ function roundNum(numStr) {
     firstNum = numStrArr.shift();
     allZero = numStrArr.every(num => num === 0);
     allNine = numStrArr.every(num => num === 9);
-
+    console.log(allZero, allNine)
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
     
@@ -136,7 +139,7 @@ function roundNum(numStr) {
     //remove last number of arr if it is 9 or above
     //increment second last number 
     else if (modifyNum > 4 && (allNine === false || allZero === false)) {
-        len = numStrArr.length - 1;
+        let len = numStrArr.length - 1;
         numStrArr[len] += 1;
         while (numStrArr[len] >= 9) {
             numStrArr.pop();
@@ -159,15 +162,12 @@ function checkForLen(numStr) {
 function addPercent(obj) {
     if (obj.curNumStr === '')
         obj.curNumStr = obj.displayValue();
-
     //using unary operator to convert string into number
     obj.curNumStr = ((+obj.curNumStr) / 100).toString();
-    
     const value = checkForLen(obj.curNumStr);
-    
     obj.displayValue(value);
     obj = addNum(obj);
-
+    console.table(obj)
     return obj;
 }
 
@@ -180,6 +180,7 @@ function equateExpr(obj) {
 
     result = calculateNum(+numFirst, firstOperator, +numLast);
     obj = allClearBtn(obj);
+    console.table(obj);
     obj.numFirst = result.toString();
     obj.firstOperator = lastOperator;
     obj.displayValue(checkForLen(obj.numFirst));
@@ -232,9 +233,7 @@ function main() {
         const btn = e.target;
         calValue = checkBtnClass(btn, calValue);
 
-        const {numLast, firstOperator, lastOperator} = calValue;
-
-        if (lastOperator !== null)
+        if (calValue.lastOperator !== null)
             calValue = equateExpr(calValue);
     }
 
