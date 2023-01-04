@@ -39,6 +39,20 @@ function limitNumber(strExpr) {
     return strExpr.match(/^-*[\d\.\w\\W]{1,10}/g).join('');
 }
 
+function removeNum(obj) {
+    obj.curNumStr = obj.curNumStr.split('');
+    curNumStr.pop();
+    obj.curNumStr = obj.curNumStr.join('');
+    obj.displayValue(numArr);
+    
+    if (obj.curNumStr === '') {
+        obj.displayValue();
+        obj.curNumStr = '0';
+    }
+    obj = addNum(obj);
+    return obj;
+}
+
 function addPeriod(obj) {
     if (obj.curNumStr === '')
         obj.curNumStr = '0';
