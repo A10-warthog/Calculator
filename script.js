@@ -14,7 +14,7 @@ function allClearBtn(obj) {
 function addOperator(operator, obj) {
     obj.curNumStr = '';
 
-    if (obj.firstOperator !== null)
+    if (obj.numLast !== '')
         obj.lastOperator = operator;
     else if (obj.numFirst !== '')
         obj.firstOperator = operator;
@@ -231,6 +231,11 @@ function main() {
     function mediator(e) {
         const btn = e.target;
         calValue = checkBtnClass(btn, calValue);
+
+        const {numLast, firstOperator, lastOperator} = calValue;
+
+        if (lastOperator !== null)
+            calValue = equateExpr(calValue);
     }
 
     button.forEach(button => button.addEventListener("pointerdown", mediator))
