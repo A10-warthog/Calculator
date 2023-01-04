@@ -16,7 +16,7 @@ function addOperator(operator, obj) {
 
     if (obj.firstOperator !== null)
         obj.lastOperator = operator;
-    else 
+    else if (obj.numFirst !== '')
         obj.firstOperator = operator;
 
     return obj;
@@ -174,17 +174,16 @@ function addPercent(obj) {
 function equateExpr(obj) {
     let result = '';
     let {numFirst, numLast, firstOperator, lastOperator} = obj;
+   
+    if (firstOperator === null) 
+        return obj;
 
-    if (firstOperator === null) {
-        firstOperator = '+';
-        lastOperator = firstOperator;
-    } 
-        
     result = calculateNum(+numFirst, firstOperator, +numLast);
     obj = allClearBtn(obj);
     obj.numFirst = result.toString();
     obj.firstOperator = lastOperator;
     obj.displayValue(checkForLen(obj.numFirst));
+
     return obj;
 }
 
