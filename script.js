@@ -40,11 +40,11 @@ function limitNumber(strExpr) {
 }
 
 function removeNum(obj) {
-    obj.curNumStr = obj.curNumStr.split('');
-    curNumStr.pop();
-    obj.curNumStr = obj.curNumStr.join('');
-    obj.displayValue(numArr);
-    
+    const numArr = obj.curNumStr.split('');
+    numArr.pop();
+    obj.curNumStr = numArr.join('');
+    obj.displayValue(obj.curNumStr);
+
     if (obj.curNumStr === '') {
         obj.displayValue();
         obj.curNumStr = '0';
@@ -61,6 +61,7 @@ function addPeriod(obj) {
         obj.curNumStr += '';
     else
         obj.curNumStr += '.';
+
     obj.displayValue(obj.currNumStr);
     obj = addNum(obj);
     
@@ -85,7 +86,7 @@ function checkNum(num, obj) {
         obj.curNumStr += num;
         const value = limitNumber(obj.curNumStr);
         obj.displayValue(value);
-       obj = addNum(obj);
+        obj = addNum(obj);
     }
     return obj;
 }
