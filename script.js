@@ -1,19 +1,20 @@
 "use strict"
 
 function allClearBtn(obj) {
-     obj.numFirst = '';
-     obj.numLast = '';
-     obj.curNumStr = '';
-     obj.firstOperator = null;
-     obj.lastOperator = null;
-     obj.displayValue("0");
-     
+     for (let key in obj) {
+        if (typeof obj[key] === 'function')
+            obj[key]();
+        else if ((/\d/).test(obj[key]) === true) //check for number
+            obj[key] = '';
+        else if ((/\W/).test(obj[key]) === true)//check for sign
+            obj[key] = null;
+     }
+   
      return obj;
 }
 
 function addOperator(operator, obj) {
     obj.curNumStr = '';
-
     if (obj.numLast !== '')
         obj.lastOperator = operator;
     else if (obj.numFirst !== '')
@@ -36,8 +37,8 @@ function calculateNum(a, sign, b) {
 }
 
 function limitNumber(strExpr) {
-    /*matches numbers, period, letter and non alpha numeric letters
-      and returns a string with length from 1 to 10 */
+    //matches numbers, period, letter and non alpha numeric letters
+    //return string with length from 1 to 10 
     return strExpr.match(/^-*[\d\.\w\W]{1,10}/g).join('');
 }
 
@@ -71,8 +72,6 @@ function addPeriod(obj) {
 }
 
 function addNum(obj) {
-    // obj.curNumStr = limitNumber(obj.curNumStr);
-    
     if (obj.curNumStr === '0')
         obj.curNumStr = '';
 
@@ -167,7 +166,7 @@ function addPercent(obj) {
     const value = checkForLen(obj.curNumStr);
     obj.displayValue(value);
     obj = addNum(obj);
-    console.table(obj)
+    
     return obj;
 }
 
@@ -179,8 +178,8 @@ function equateExpr(obj) {
         return obj;
 
     result = calculateNum(+numFirst, firstOperator, +numLast);
+
     obj = allClearBtn(obj);
-    console.table(obj);
     obj.numFirst = result.toString();
     obj.firstOperator = lastOperator;
     obj.displayValue(checkForLen(obj.numFirst));
