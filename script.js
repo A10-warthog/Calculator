@@ -7,6 +7,7 @@ function allClearBtn(obj) {
      obj.firstOperator = null;
      obj.lastOperator = null;
      obj.displayValue("0");
+     
      return obj;
 }
 
@@ -17,10 +18,11 @@ function addOperator(operator, obj) {
         obj.lastOperator = operator;
     else 
         obj.firstOperator = operator;
+
     return obj;
 }
 
-function operateOnNumber(a, sign, b) {
+function calculateNum(a, sign, b) {
     switch(sign) {
         case '+':
             return a + b;
@@ -47,7 +49,7 @@ function removeNum(obj) {
 
     if (obj.curNumStr === '') {
         obj.displayValue();
-        obj.curNumStr = '0';
+        return obj;
     }
     obj = addNum(obj);
     return obj;
@@ -69,7 +71,7 @@ function addPeriod(obj) {
 }
 
 function addNum(obj) {
-    obj.currNumStr = limitNumber(obj.curNumStr);
+    obj.curNumStr = limitNumber(obj.curNumStr);
 
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
@@ -88,6 +90,7 @@ function checkNum(num, obj) {
         obj.displayValue(value);
         obj = addNum(obj);
     }
+
     return obj;
 }
 
@@ -147,11 +150,9 @@ function roundNum(numStr) {
 
 function checkForLen(numStr) {
     const len = numStr.match(/\d+/g).join('').length;
-    
-    if (len > 10) {
+    if (len > 10) 
         return roundNum(numStr);
-    } 
-
+    
     return numStr;
 }
 
@@ -165,8 +166,25 @@ function addPercent(obj) {
     const value = checkForLen(obj.curNumStr);
     
     obj.displayValue(value);
-    addNum(obj);
+    obj = addNum(obj);
 
+    return obj;
+}
+
+function equateExpr(obj) {
+    let result = '';
+    let {numFirst, numLast, firstOperator, lastOperator} = obj;
+
+    if (firstOperator === null) {
+        firstOperator = '+';
+        lastOperator = firstOperator;
+    } 
+        
+    result = calculateNum(+numFirst, firstOperator, +numLast);
+    obj = allClearBtn(obj);
+    obj.numFirst = result.toString();
+    obj.firstOperator = lastOperator;
+    obj.displayValue(checkForLen(obj.numFirst));
     return obj;
 }
 
@@ -216,7 +234,7 @@ function main() {
         calValue = checkBtnClass(btn, calValue);
     }
 
-    button.forEach(button => addEventListener("pointerdown", mediator))
+    button.forEach(button => button.addEventListener("pointerdown", mediator))
 }
 
 main();
