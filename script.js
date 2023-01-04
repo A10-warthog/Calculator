@@ -39,7 +39,23 @@ function limitNumber(strExpr) {
     return strExpr.match(/^-*[\d\.\w\\W]{1,10}/g).join('');
 }
 
+function addPeriod(obj) {
+    if (obj.curNumStr === '')
+        obj.curNumStr = '0';
+    
+    if (obj.curNumStr.includes("."))
+        obj.curNumStr += '';
+    else
+        obj.curNumStr += '.';
+    obj.displayValue(obj.currNumStr);
+    obj = addNum(obj);
+    
+    return obj;
+}
+
 function addNum(obj) {
+    obj.currNumStr = limitNumber(obj.curNumStr);
+
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
     else    
@@ -55,9 +71,8 @@ function checkNum(num, obj) {
         obj.curNumStr += num;
         const value = limitNumber(obj.curNumStr);
         obj.displayValue(value);
-        addNum(obj);
+       obj = addNum(obj);
     }
-
     return obj;
 }
 
@@ -94,6 +109,11 @@ function roundNum(numStr) {
 
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
+    
+    //assign string joined value of numStrArr
+    else if ((modifyNum < 4 && (allNine === true || allNine === false)) ||
+              (modifyNum > 4 && allZero === true))
+        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
 
     //remove last number of arr if it is 9 or above
     //increment second last number 
@@ -107,11 +127,6 @@ function roundNum(numStr) {
         }
         rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
     }
-    //assign string joined value of numStrArr
-    else if ((modifyNum < 4 && allNine === true || allZero === false ||
-        modifyNum > 4 && allZero === true))
-        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
-    
     return `${frontSign}${firstNum}.${rest}e${eSign}${numStrLen}`;
 }
 
@@ -128,6 +143,7 @@ function checkForLen(numStr) {
 function addPercent(obj) {
     if (obj.curNumStr === '')
         obj.curNumStr = obj.displayValue();
+
     //using unary operator to convert string into number
     obj.curNumStr = ((+obj.curNumStr) / 100).toString();
     
