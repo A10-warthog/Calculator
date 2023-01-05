@@ -216,10 +216,23 @@ function checkBtnClass(btn, obj) {
         return addOperator(btn.textContent, obj);
 }
 
+function checkKeyData(numKey, numStrKey, numArrKey, btnArr) {
+    btnArr.forEach(btn => {
+        let key = [], modify = [];
+        let dataKey = btn.getAttribute("data-key");
+        let dataModify = btn.getAttribute("data-modify");
+        if (dataKey !== null)
+            key = dataKey.match(/\d+/g);
+        if (dataModify !== null)
+            modify = dataModify.match(/\d+/g);
+    })
+
+}
+
 function main() {
     const [...button] = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
-    let strKey = '';
+    let strKeyNum = '';
     const btnData = button.reduce((arr, btn)=> {
         if (btn.getAttribute("data-key") !== null)
             arr.push(btn.getAttribute("data-key"));
@@ -255,18 +268,19 @@ function main() {
     }
 
     function keyboardSup(e) {
-        const key = e.keyCode.toString();
+        const keyNum = e.keyCode.toString();
+        let keyExists = btnData.some(num => num === key);
+        if (keyExists === false)
+            return;
         if (!e.repeat)
-            strKey += key + ',';
-        let arrKey = strKey.match(/\d+/g);
+            strKeyNum += keyNum + ',';
+        let arrKey = strKeyNum.match(/\d+/g);
         while (arrKey.length > 2) 
             arrKey.pop();
         if (arrKey !== null && arrKey.length === 2)
             if (arrKey[0] === arrKey[1])
                 arrKey.pop();
-        let keyExists = btnData.some(num => num === key);
-        if (keyExists === false)
-            return;
+        checkKeyData(keyNum, strKeyNum, arrKey, button);
     }
 
     button.forEach(button => button.addEventListener("pointerdown", mediator));
