@@ -219,7 +219,7 @@ function checkBtnClass(btn, obj) {
 function main() {
     const [...button] = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
-    
+    let strKey = '';
     const btnData = button.reduce((arr, btn)=> {
         if (btn.getAttribute("data-key") !== null)
             arr.push(btn.getAttribute("data-key"));
@@ -228,12 +228,13 @@ function main() {
         return arr; 
     }, []).join(',').split(',');
     
-    const btnSet = button.reduce((obj, val) => {
+    const btnSet = btnData.reduce((obj, val) => {
         if (!obj.hasOwnProperty(val))
             obj[val] = val;
         return obj;
-    }, {})
+    }, {});
 
+    console.log (btnSet);
     let calValue = {
         numFirst: '',
         numLast: '', 
@@ -253,7 +254,14 @@ function main() {
             calValue = equateExpr(calValue);
     }
 
+    function keyboardSup(e) {
+        const key = e.keyCode.toString();
+        if (!e.repeat)
+            strKey += key + ',';
+    }
+
     button.forEach(button => button.addEventListener("pointerdown", mediator));
+    window.addEventListener("keydown", keyboardSup)
 }
 
 main();
