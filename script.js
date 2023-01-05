@@ -49,9 +49,9 @@ function removeNum(obj) {
     const numArr = checkForLen(obj.curNumStr).split('');
     numArr.pop();
     obj.curNumStr = numArr.join('');
-    obj.displayValue(obj.curNumStr);
+    obj.displayValue().textContent = obj.curNumStr;
     if (obj.curNumStr === '') {
-        obj.displayValue();
+        obj.displayValue().textContent = '0';
         return obj;
     }
     obj = addNum(obj);
@@ -65,14 +65,14 @@ function addPeriod(obj) {
         obj.curNumStr += '';
     else
         obj.curNumStr += '.';
-    obj.displayValue(obj.currNumStr);
+    obj.displayValue().textContent = obj.curNumStr;
     obj = addNum(obj);
     return obj;
 }
 
 function addNum(obj) {
-    if (obj.curNumStr === '0')
-        obj.curNumStr = '';
+    // if (obj.curNumStr === '0')
+    //     obj.curNumStr = '';
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
     else    
@@ -81,19 +81,17 @@ function addNum(obj) {
 }
 
 function checkNum(num, obj) {
-    if ((obj.curNumStr === '' || obj.curNumStr === '0') && num === '0')
-        obj.curNumStr = '0';
-    else {
-        obj.curNumStr += num;
-        const value = limitNumber(obj.curNumStr);
-        obj.displayValue(value);
-        obj = addNum(obj);
-    }
+    obj.curNumStr += num;
+    if ((/^0(?=\d)/).test(obj.curNumStr) === true)
+        obj.curNumStr = obj.curNumStr.replace((/^0/), '');
+    obj.curNumStr = limitNumber(obj.curNumStr);
+    obj.displayValue().textContent = obj.curNumStr;
+    obj = addNum(obj);
     return obj;
 }
 
 function negateNum(obj) {
-    obj.curNumStr = obj.displayDiv.textContent;
+    obj.curNumStr = obj.displayValue().textContent;
     if ((/^-/).test(obj.curNumStr) === false)
         obj.curNumStr = '-' + obj.curNumStr;
     else 
@@ -101,7 +99,7 @@ function negateNum(obj) {
     if (obj.curNumStr === '-0')
         obj.curNumStr = '0'
     console.log(obj.curNumStr);
-    obj.displayDiv.textContent = limitNumber(obj.curNumStr);
+    obj.displayValue().textContent = limitNumber(obj.curNumStr);
     obj = addNum(obj);         
     return obj;
 }
@@ -161,25 +159,36 @@ function checkForLen(numStr) {
 
 function addPercent(obj) {
     if (obj.curNumStr === '')
-        obj.curNumStr = obj.displayValue();
+        obj.curNumStr = obj.displayValue().textContent;
     //using unary operator to convert string into number
     obj.curNumStr = ((+obj.curNumStr) / 100).toString();
     const value = checkForLen(obj.curNumStr);
-    obj.displayValue(value);
+    obj.displayValue().textContent = value;
     obj = addNum(obj);
     return obj;
 }
 
 function equateExpr(obj) {
-    if (firstOperator === null) 
-        return obj;
     let result = '';
     let {numFirst, numLast, firstOperator, lastOperator} = obj;
+    
+    if (numLast === '0' && firstOperator === '/') {
+        if (numFirst === '0')
+            obj.displayValue().textContent = "undefined";
+        else 
+            obj.displayValue().textContent = "Infinity";
+        obj = allClearBtn(obj);
+        return obj;
+    }
+
+    if (firstOperator === null) 
+        return obj;
+    
     result = calculateNum(+numFirst, firstOperator, +numLast);
     obj = allClearBtn(obj);
     obj.numFirst = result.toString();
     obj.firstOperator = lastOperator;
-    obj.displayValue(checkForLen(obj.numFirst));
+    obj.displayValue().textContent = checkForLen(obj.numFirst);
     console.log(obj, 'ev');
     return obj;
 }
