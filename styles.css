@@ -10,7 +10,7 @@
 }
 
 .calculator {
-    width: 24rem;
+    width: 21rem;
     padding: 0.8rem;
     background-color: #262627;
     border: 5px solid transparent;
@@ -36,7 +36,7 @@
     background-color: #675f6e;              
     font-family: var(--fFamily);
     color: var(--fColor);
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: bold;
     border-radius: 1rem;
 }
@@ -55,7 +55,7 @@
 
 .box_btn--flex {
     display: flex;
-    column-gap: 0.2rem;
+    column-gap: 0.3rem;
 }
 
 .btn {
