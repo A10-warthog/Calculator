@@ -259,6 +259,14 @@ function main() {
         if (!e.repeat)
             strKey += key + ',';
         let arrKey = strKey.match(/\d+/g);
+        while (arrKey.length > 2) 
+            arrKey.pop();
+        if (arrKey !== null && arrKey.length === 2)
+            if (arrKey[0] === arrKey[1])
+                arrKey.pop();
+        let keyExists = btnData.some(num => num === key);
+        if (keyExists === false)
+            return;
     }
 
     button.forEach(button => button.addEventListener("pointerdown", mediator));
