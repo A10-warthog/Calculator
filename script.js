@@ -3,10 +3,12 @@
 function allClearBtn(obj) {
      for (let key in obj) {
         if (typeof obj[key] === 'function')
-            obj[key]();
-        else if ((/\d/).test(obj[key]) === true) //check for number
+            obj[key]().textContent = '0';
+        //check for number
+        else if ((/\d/).test(obj[key]) === true)
             obj[key] = '';
-        else if ((/\W|\w/).test(obj[key]) === true)//check for sign
+        //check for sign
+        else if ((/\W|\w/).test(obj[key]) === true)
             obj[key] = null;
      }
      return obj;
@@ -29,15 +31,15 @@ function calculateNum(a, sign, b) {
             return a - b;
         case 'x':
             return a * b;
-        case '/': {
+        case '/': 
             return a / b; 
-        }   
     }
 }
 
 function limitNumber(strExpr) {
-    //matches numbers, period, letter and non alpha numeric letters
-    //return string with length from 1 to 10 
+    /*matches numbers, period, letter and non alpha numeric letters
+    *return string with length from 1 to 10 
+    */
     return strExpr.match(/^-*[\d\.\w\W]{1,10}/g).join('');
 }
 
@@ -71,8 +73,6 @@ function addPeriod(obj) {
 }
 
 function addNum(obj) {
-    // if (obj.curNumStr === '0')
-    //     obj.curNumStr = '';
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
     else    
@@ -116,19 +116,23 @@ function roundNum(numStr) {
         frontSign = '-';
     //replace front operator and period
     str = str.replace((/^-|\./g), '');
-    //match first 6 digit
-    //Convert string digit to integer with unary operator
+    /*match first 6 digit
+    *Convert string digit to integer with unary operator
+    */
     numStrArr = str.match(/^\d{6}/g)[0].split('').map(num => +num);
+
     if (numStr.includes("e")) 
     //match integer after e letter 
         numStrLen = str.match(/\d+$/g)[0];
     else
         numStrLen = str.length - 1;
+
     modifyNum = numStrArr.pop();
+    //First digit of the string
     firstNum = numStrArr.shift();
     allZero = numStrArr.every(num => num === 0);
     allNine = numStrArr.every(num => num === 9);
-    console.log(allZero, allNine)
+    console.log(allZero, allNine);
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
     //assign string joined value of numStrArr
