@@ -217,8 +217,9 @@ function checkBtnClass(btn, obj) {
 }
 
 function main() {
-    const button = document.querySelectorAll(".btn");
+    const [...button] = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
+  
     let calValue = {
         numFirst: '',
         numLast: '', 
@@ -238,7 +239,7 @@ function main() {
             calValue = equateExpr(calValue);
     }
 
-    button.forEach(button => button.addEventListener("pointerdown", mediator))
+    button.forEach(button => button.addEventListener("pointerdown", mediator));
 }
 
 main();
