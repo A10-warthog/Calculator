@@ -258,6 +258,7 @@ function main() {
         const key = e.keyCode.toString();
         if (!e.repeat)
             strKey += key + ',';
+        let arrKey = strKey.match(/\d+/g);
     }
 
     button.forEach(button => button.addEventListener("pointerdown", mediator));
