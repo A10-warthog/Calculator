@@ -220,16 +220,13 @@ function main() {
     const [...button] = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
     const btnData = button.reduce((arr, btn)=> {
-        const key = btn.getAttribute("data-key");
-        const modify = btn.getAttribute("data-modify");
-        if (key !== null)
-            arr.push(key);
-        if (modify !== null)
-            arr.push(modify);
-        return arr;
+        if (btn.getAttribute("data-key") !== null)
+            arr.push(btn.getAttribute("data-key"));
+        if (btn.getAttribute("data-modify") !== null)
+            arr.push(btn.getAttribute("data-modify"));
+        return arr; 
     }, []).join(',').split(',');
-    console.log(btnData);
-  
+ 
     let calValue = {
         numFirst: '',
         numLast: '', 
