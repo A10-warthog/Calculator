@@ -219,6 +219,7 @@ function checkBtnClass(btn, obj) {
 function main() {
     const [...button] = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
+    
     const btnData = button.reduce((arr, btn)=> {
         if (btn.getAttribute("data-key") !== null)
             arr.push(btn.getAttribute("data-key"));
@@ -226,7 +227,13 @@ function main() {
             arr.push(btn.getAttribute("data-modify"));
         return arr; 
     }, []).join(',').split(',');
- 
+    
+    const btnSet = button.reduce((obj, val) => {
+        if (!obj.hasOwnProperty(val))
+            obj[val] = val;
+        return obj;
+    }, {})
+
     let calValue = {
         numFirst: '',
         numLast: '', 
