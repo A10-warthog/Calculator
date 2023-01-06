@@ -240,8 +240,7 @@ function main() {
             calValue = equateExpr(calValue);
     }
 
-    window.addEventListener("keydown", keyboardSup)
-    button.forEach(button => button.addEventListener("pointerdown", mediator));
+    button.forEach(button => button.addEventListener("click", mediator));
 }
 
 main();
