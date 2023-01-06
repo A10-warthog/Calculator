@@ -82,6 +82,7 @@ function addNum(obj) {
 
 function checkNum(num, obj) {
     obj.curNumStr += num;
+    //replace every zero after 1st zero
     if ((/^0(?=\d)/).test(obj.curNumStr) === true)
         obj.curNumStr = obj.curNumStr.replace((/^0/), '');
     obj.curNumStr = limitNumber(obj.curNumStr);
@@ -90,7 +91,7 @@ function checkNum(num, obj) {
     return obj;
 }
 
-function negateNum(obj) {
+function negativeNum(obj) {
     obj.curNumStr = obj.displayValue().textContent;
     if ((/^-/).test(obj.curNumStr) === false)
         obj.curNumStr = '-' + obj.curNumStr;
@@ -98,12 +99,11 @@ function negateNum(obj) {
         obj.curNumStr = obj.curNumStr.replace((/^-/), '');
     if (obj.curNumStr === '-0')
         obj.curNumStr = '0'
-    console.log(obj.curNumStr);
     obj.displayValue().textContent = limitNumber(obj.curNumStr);
     obj = addNum(obj);         
     return obj;
 }
-
+//round number to 5th digits after decimal point
 function roundNum(numStr) {
     let str = numStr, rest = '0', eSign = '+', frontSign = '';
     let firstNum = 0, modifyNum = 0, numStrLen = 0;
@@ -155,7 +155,7 @@ function roundNum(numStr) {
 }
 
 function checkForLen(numStr) {
-    const len = numStr.match(/\d+/g).join('').length;
+    const len = numStr.match(/\d*/g).join('').length;
     if (len > 10) 
         return roundNum(numStr);
     return numStr;
@@ -164,7 +164,7 @@ function checkForLen(numStr) {
 function addPercent(obj) {
     if (obj.curNumStr === '')
         obj.curNumStr = obj.displayValue().textContent;
-    //using unary operator to convert string into number
+    //use unary operator to convert string into number
     obj.curNumStr = ((+obj.curNumStr) / 100).toString();
     const value = checkForLen(obj.curNumStr);
     obj.displayValue().textContent = value;
@@ -205,7 +205,7 @@ function checkBtnClass(btn, obj) {
     if (btn.classList.contains("btn_equal"))
         return equateExpr(obj);
     if (btn.classList.contains("btn_negation"))
-        return negateNum(obj);
+        return negativeNum(obj);
     if (btn.classList.contains("btn_period"))
         return addPeriod(obj);
     if (btn.classList.contains("btn_back"))
@@ -219,12 +219,10 @@ function checkBtnClass(btn, obj) {
 function main() {
     const [...button] = document.querySelectorAll(".btn");
     const display = document.querySelector(".display");
-  
     let calValue = {
         numFirst: '',
         numLast: '', 
         curNumStr: '',
-        strKeyNum: '',
         firstOperator: null,
         lastOperator: null,
         displayValue() {
@@ -233,14 +231,32 @@ function main() {
     }
 
     function mediator(e) {
+        console.log(true, e)
         const btn = e.target;
         calValue = checkBtnClass(btn, calValue);
-        console.table(calValue);
         if (calValue.lastOperator !== null)
             calValue = equateExpr(calValue);
     }
 
+    function keySupport(e) {
+        const key = document.querySelector(`.btn[data-key="${e.key}"]`);
+        if (!key)
+            return;
+        //end btn transition
+        if (key.classList.contains("btn--press")) {
+            key.classList.toggle("btn--press");
+            return;
+        }
+        key.addEventListener("click", mediator);
+        key.click();
+        key.classList.toggle("btn--press");
+    }
+
     button.forEach(button => button.addEventListener("click", mediator));
+    //call mediator function when key matches data key
+    window.addEventListener("keydown", keySupport);
+    //remove btn--press class if present
+    window.addEventListener("keyup", keySupport);
 }
 
 main();
