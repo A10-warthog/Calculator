@@ -16,6 +16,9 @@ function allClearBtn(obj) {
 
 function addOperator(operator, obj) {
     obj.curNumStr = '';
+    //enable backspace
+    const back =  document.querySelector(".btn_back");
+        back.disabled = false;
     if (obj.numLast !== '')
         obj.lastOperator = operator;
     else if (obj.numFirst !== '')
@@ -44,16 +47,18 @@ function limitNumber(strExpr) {
 }
 
 function removeNum(obj) {
-    if (obj.firstOperator !== null || obj.lastOperator !== null)
+    //disabled for 1st operand if first operator is present 
+    if (obj.firstOperator !== null && obj.curNumStr === '') 
         return obj;
-    if (obj.curNumStr === '')
-        obj.curNumStr = '0';
+
     const numArr = checkForLen(obj.curNumStr).split('');
     numArr.pop();
     obj.curNumStr = numArr.join('');
-    obj.displayValue().textContent = obj.curNumStr;
+    obj.displayNum().textContent = obj.curNumStr;
     if (obj.curNumStr === '') {
-        obj.displayValue().textContent = '0';
+        obj.displayNum().textContent = '0';
+        if (obj.firstOperator !== null)
+            obj.numLast = '0'
         return obj;
     }
     obj = addNum(obj);
@@ -67,12 +72,17 @@ function addPeriod(obj) {
         obj.curNumStr += '';
     else
         obj.curNumStr += '.';
-    obj.displayValue().textContent = obj.curNumStr;
+    obj.displayNum().textContent = obj.curNumStr;
     obj = addNum(obj);
     return obj;
 }
 
-function addNum(obj) {
+function addNum(obj) {    
+    //check if - operator is in front
+    if ((/^-/).test(obj.curNumStr)=== true && obj.numLast === '') {
+        obj.numFirst = obj.curNumStr;
+        return obj;
+    }
     if (obj.firstOperator !== null)
         obj.numLast = obj.curNumStr;
     else    
@@ -86,20 +96,20 @@ function checkNum(num, obj) {
     if ((/^0(?=\d)/).test(obj.curNumStr) === true)
         obj.curNumStr = obj.curNumStr.replace((/^0/), '');
     obj.curNumStr = limitNumber(obj.curNumStr);
-    obj.displayValue().textContent = obj.curNumStr;
+    obj.displayNum().textContent = obj.curNumStr;
     obj = addNum(obj);
     return obj;
 }
 
 function negativeNum(obj) {
-    obj.curNumStr = obj.displayValue().textContent;
+    obj.curNumStr = obj.displayNum().textContent;
     if ((/^-/).test(obj.curNumStr) === false)
         obj.curNumStr = '-' + obj.curNumStr;
     else 
         obj.curNumStr = obj.curNumStr.replace((/^-/), '');
     if (obj.curNumStr === '-0')
         obj.curNumStr = '0'
-    obj.displayValue().textContent = limitNumber(obj.curNumStr);
+    obj.displayNum().textContent = limitNumber(obj.curNumStr);
     obj = addNum(obj);         
     return obj;
 }
@@ -162,12 +172,14 @@ function checkForLen(numStr) {
 }
 
 function addPercent(obj) {
+    //disable backspace button
+    document.querySelector(".btn_back").disabled = true;
     if (obj.curNumStr === '')
-        obj.curNumStr = obj.displayValue().textContent;
+        obj.curNumStr = obj.displayNum().textContent;
     //use unary operator to convert string into number
     obj.curNumStr = ((+obj.curNumStr) / 100).toString();
     const value = checkForLen(obj.curNumStr);
-    obj.displayValue().textContent = value;
+    obj.displayNum().textContent = value;
     obj = addNum(obj);
     return obj;
 }
@@ -175,25 +187,22 @@ function addPercent(obj) {
 function equateExpr(obj) {
     let result = '';
     let {numFirst, numLast, firstOperator, lastOperator} = obj;
-    
     if (numLast === '0' && firstOperator === '/') {
         if (numFirst === '0')
-            obj.displayValue().textContent = "undefined";
+            obj.displayNum().textContent = "undefined";
         else 
-            obj.displayValue().textContent = "Infinity";
+            obj.displayNum().textContent = "Infinity";
         obj = allClearBtn(obj);
         return obj;
     }
-
     if (firstOperator === null) 
         return obj;
-    
     result = calculateNum(+numFirst, firstOperator, +numLast);
     obj = allClearBtn(obj);
     obj.numFirst = result.toString();
     obj.firstOperator = lastOperator;
-    obj.displayValue().textContent = checkForLen(obj.numFirst);
-    console.log(obj, 'ev');
+    obj.displayNum().textContent = checkForLen(obj.numFirst);
+    
     return obj;
 }
 
@@ -225,13 +234,12 @@ function main() {
         curNumStr: '',
         firstOperator: null,
         lastOperator: null,
-        displayValue() {
+        displayNum() {
            return display;
         },
     }
 
     function mediator(e) {
-        console.log(true, e)
         const btn = e.target;
         calValue = checkBtnClass(btn, calValue);
         if (calValue.lastOperator !== null)
@@ -258,5 +266,4 @@ function main() {
     //remove btn--press class if present
     window.addEventListener("keyup", keySupport);
 }
-
 main();
