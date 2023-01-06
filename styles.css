@@ -70,21 +70,40 @@
     background-color: #41404e;
     box-shadow: 0 4px 0 #38373f;
     cursor: pointer;
-    transition: all 90ms cubic-bezier(0.45, 0.75, 0.5, 1);
-}
-
-.btn_clear {
-    background-color: #008500;
-    box-shadow: 0 4px 0 #255529;
+    transition: all 100ms cubic-bezier(0.45, 0.75, 0.5, 1);
 }
 
 .btn_operator {
     font-size: 1.4rem;
 }
 
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 0 #41403f;
+    background-color: #58575f;
+}
+
+.btn:active, .btn--press {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #105597;
+}
+
+.btn_clear {
+    background-color: #008500;
+    box-shadow: 0 4px 0 #2b6330;
+}
+.btn_clear:hover {
+    background-color: #119911;
+    box-shadow: 0 5px 0 #316d36;
+}
 .btn_sign--color {
     background-color: #206bc0;
     box-shadow: 0 4px 0 #105597;
+}
+
+.btn_sign--color:hover {
+    background-color: #337ccf;
+    box-shadow: 0 5px 0 #145b9c;
 }
 
 .btn_equal {
@@ -92,8 +111,8 @@
     box-shadow: 0 4px 0 #104c9f;
 }
 
-.btn:active, .btn--press {
-    transform: translateY(4px);
-    box-shadow: 0 0px 0 #105597;
-    text-shadow: 0 0 30px #fff;
+.btn_equal:hover {
+    background-color: #2066e0;
+    box-shadow: 0 5px 0 #1351a7;
 }
+
