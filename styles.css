@@ -90,7 +90,7 @@
     box-shadow: 0 4px 0 #104c9f;
 }
 
-.btn:active {
+.btn:active, .btn--press {
     transform: translateY(4px);
     box-shadow: 0 0px 0 #105597;
     text-shadow: 0 0 30px #fff;
