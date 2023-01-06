@@ -142,7 +142,6 @@ function roundNum(numStr) {
     firstNum = numStrArr.shift();
     allZero = numStrArr.every(num => num === 0);
     allNine = numStrArr.every(num => num === 9);
-    console.log(allZero, allNine);
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
     //assign string joined value of numStrArr
@@ -252,12 +251,12 @@ function main() {
             return;
         //end btn transition
         if (key.classList.contains("btn--press")) {
-            key.classList.toggle("btn--press");
+            key.classList.remove("btn--press");
             return;
         }
         key.addEventListener("click", mediator);
         key.click();
-        key.classList.toggle("btn--press");
+        key.classList.add("btn--press");
     }
 
     button.forEach(button => button.addEventListener("click", mediator));
