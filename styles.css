@@ -87,11 +87,6 @@
     background-color: #58575f;
 }
 
-.btn:active, .btn--press {
-    transform: translateY(4px);
-    box-shadow: 0 0px 0 #105597;
-}
-
 .btn_clear {
     background-color: #008500;
     box-shadow: 0 4px 0 #2b6330;
@@ -118,5 +113,10 @@
 .btn_equal:hover {
     background-color: #2066e0;
     box-shadow: 0 5px 0 #1351a7;
+}
+
+.btn:active, .btn--press {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #105597;
 }
 
