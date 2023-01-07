@@ -129,6 +129,12 @@
     position: absolute;
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
+    font-family: Helvetica;
     word-spacing: 0.2rem;
 }
 
+.footer__sign {
+    position: relative;
+    top: 1px;
+    font-weight: bolder;
+}
