@@ -191,7 +191,9 @@ function equateExpr(obj) {
             obj.displayNum().textContent = "undefined";
         else 
             obj.displayNum().textContent = "Infinity";
+        const value = obj.displayNum().textContent;
         obj = allClearBtn(obj);
+        obj.displayNum().textContent = value;
         return obj;
     }
     if (firstOperator === null) 
@@ -243,6 +245,7 @@ function main() {
         calValue = checkBtnClass(btn, calValue);
         if (calValue.lastOperator !== null)
             calValue = equateExpr(calValue);
+        console.table(calValue);
     }
 
     function keySupport(e) {
