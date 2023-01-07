@@ -1,12 +1,14 @@
 .contain_back {
     height: 100vh;
     margin: -0.5rem; 
+    position: relative;
 }
 
 .contain_back--flex {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -2rem;
 }
 
 .calculator {
@@ -15,9 +17,9 @@
     background-color: #262627;
     border: 5px solid transparent;
     border-radius: 1rem;
-    box-shadow: 0px 5px 0 #363638,
-                0 0 3px #363738,
-                0 8px 3px #737475;
+    box-shadow: 0px 6px 0 #363638,
+                0 0 2px #363738,
+                0 11px 1.5px #979799a0;
 }
 
 .cal_txt {
@@ -36,7 +38,9 @@
     min-height: 7rem;
     padding-right: 3px;
     margin-bottom: 0.5rem;
-    background-color: #675f6e; 
+    background: linear-gradient(90deg,
+                              #73868f,
+                              #746b7c); 
     box-shadow: 0px 0px 3px 0.5px #473f4e inset;
     font-family: var(--fFamily);
     color: var(--fColor);
@@ -118,5 +122,13 @@
 .btn:active, .btn--press {
     transform: translateY(4px);
     box-shadow: 0 0px 0 #105597;
+}
+
+.footer {
+    align-self: end;
+    position: absolute;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    word-spacing: 0.2rem;
 }
 
