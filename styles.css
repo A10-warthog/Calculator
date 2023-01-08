@@ -1,19 +1,19 @@
 .contain_back {
     height: 100vh;
     margin: -0.5rem; 
-    position: relative;
+    background: #31cfc7;
 }
 
 .contain_back--flex {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -2rem;
 }
 
 .calculator {
     width: 21rem;
     padding: 0.8rem;
+    margin-top: -3rem;
     background-color: #262627;
     border: 5px solid transparent;
     border-radius: 1rem;
@@ -26,6 +26,7 @@
     --fSize: 1.3rem;
     --fFamily: Arial, Helvetica, sans-serif;
     --fColor: #f3f3f3;
+    user-select: none;
 }
 
 .cal--flex {
@@ -48,6 +49,7 @@
     font-weight: bold;
     border-radius: 1rem;
     text-shadow: 2px 2px 3px #434c5c;
+    user-select: text;
 }
 
 .display--flex {
@@ -125,12 +127,19 @@
 }
 
 .footer {
-    align-self: end;
     position: absolute;
-    margin-bottom: 0.5rem;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    bottom: 1.5rem;
     font-size: 1.1rem;
     font-family: Helvetica;
     word-spacing: 0.2rem;
+    color: white;
+    animation-name: flicker;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
 .footer__sign {
@@ -138,3 +147,24 @@
     top: 1px;
     font-weight: bolder;
 }
+
+@keyframes flicker {
+
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow:
+        0 0 4px #fff,
+        0 0 11px #fff,
+        0 0 19px #fff,
+        0 0 40px #fff,
+        0 0 80px #fff,
+        0 0 90px #fff,
+        0 0 100px #fff,
+        0 0 150px #fff;
+    }
+
+    20%, 24%, 55%{        
+        text-shadow:  none;
+    }    
+  }
+  
+  
