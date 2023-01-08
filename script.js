@@ -113,7 +113,8 @@ function negativeNum(obj) {
     obj = addNum(obj);         
     return obj;
 }
-//round number to 5th digits after decimal point
+
+//round number to 4th digits after decimal point
 function roundNum(numStr) {
     let str = numStr, rest = '0', eSign = '+', frontSign = '';
     let firstNum = 0, modifyNum = 0, numStrLen = 0;
@@ -136,7 +137,7 @@ function roundNum(numStr) {
         numStrLen = str.match(/\d+$/g)[0];
     else
         numStrLen = str.length - 1;
-
+    //modify second last array entry
     modifyNum = numStrArr.pop();
     //First digit of the string
     firstNum = numStrArr.shift();
@@ -144,27 +145,40 @@ function roundNum(numStr) {
     allNine = numStrArr.every(num => num === 9);
     if (modifyNum > 4 && allNine === true) 
         firstNum += 1;
-    //assign string joined value of numStrArr
-    else if ((modifyNum < 4 && (allNine === true || allNine === false)) ||
-              (modifyNum > 4 && allZero === true))
-        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
     //remove last number of arr if it is 9 or above
     //increment second last number 
     else if (modifyNum > 4 && (allNine === false || allZero === false)) {
         let len = numStrArr.length - 1;
-        numStrArr[len] += 1;
+            numStrArr[len] += 1;
         while (numStrArr[len] >= 9) {
             numStrArr.pop();
             len = numStrArr.length - 1;
             numStrArr[len] += 1;
-        }
-        rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
+        } 
     }
+    //assign string joined value of numStrArr
+    rest = numStrArr.reduce((acc, cur) => acc.toString() + cur.toString());
+    if (modifyNum > 4 && allZero === true)
+        rest = rest.replace((/\0$/), '1');
+    else if (modifyNum < 4 && allZero === true)
+        rest = '0';
     return `${frontSign}${firstNum}.${rest}e${eSign}${numStrLen}`;
 }
 
 function checkForLen(numStr) {
     const len = numStr.match(/\d*/g).join('').length;
+    //remove zero or round nine if their length is greater than 6
+    if (numStr.includes('e') === false && numStr.includes('.')) {
+        const checkZero = numStr.match(/0+\d$/g);
+        const checkNine = numStr.match(/\d+\d$/g);
+        if (checkZero !== null && checkZero[0].length > 6)
+            return numStr.replace((/0+\d$/), '');
+        if (checkNine !== null && checkNine[0].length > 6) {
+            const numWithPeriod = numStr.match(/\d+\./)[0];
+            const restNum = (+checkNine[0].split('')[0] + 1).toString();
+            return `${numWithPeriod}${restNum}`;
+        }
+    }
     if (len > 10) 
         return roundNum(numStr);
     return numStr;
@@ -245,7 +259,6 @@ function main() {
         calValue = checkBtnClass(btn, calValue);
         if (calValue.lastOperator !== null)
             calValue = equateExpr(calValue);
-        console.table(calValue);
     }
 
     function keySupport(e) {
