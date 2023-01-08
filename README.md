@@ -21,19 +21,19 @@ This is used to limit length of digits as well as round long numbers.
 
 ## Results 
 - Expect 
-    3 + 2  = 5
-    3 - 2  = 1
-    3 * 2  = 6
-    3 / 2  = 1.5
-   -3 + 2  = -1
-   -3 + -2 = -5
-   -3 * 2  = -6
-   -3 * -2 = 6
-    3 %    = 0.03 
-   -3 %    = -0.03
-    0 / 0  = undefined
-    3 / 0  = infinity
-    3 +    = 3
+    *  3 + 2  = 5
+    *  3 - 2  = 1
+    *  3 * 2  = 6
+    *  3 / 2  = 1.5
+    * -3 + 2  = -1
+    * -3 + -2 = -5
+    * -3 * 2  = -6
+    * -3 * -2 = 6
+    *  3 %    = 0.03 
+    * -3 %    = -0.03
+    *  0 / 0  = undefined
+    *  3 / 0  = infinity
+    *  3 +    = 3
 
 __Round Number__
    _only if number is larger than set limit_
