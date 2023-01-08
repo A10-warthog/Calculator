@@ -19,8 +19,8 @@ both mouse and keyboard.
 + **Regular expressions** :
 This is used to limit length of digits as well as round long numbers.
 
-## Expected Results 
-
+## Results 
+- Expect 
     3 + 2  = 5
     3 - 2  = 1
     3 * 2  = 6
@@ -35,7 +35,7 @@ This is used to limit length of digits as well as round long numbers.
     3 / 0  = infinity
     3 +    = 3
 
-   __Round Number__
+__Round Number__
    _only if number is larger than set limit_
    3.999999999e-2 = 4.0e-2
    39999999999999 = 4.0e-13
